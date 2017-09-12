@@ -264,12 +264,12 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
                 ).success(function(response) {
                     $scope.searchByUrl = true;
                     $scope.dataInfo = response;
-            angular.forEach($scope.schoolInfo, function(data) {
+            angular.forEach($scope.dataInfo, function(data) {
                 data.DateCreated = new Date(parseInt(data.DateCreated.replace(/\D/igm,'')));
             })
                 }).error(function(response) {
                     $scope.searchByUrl = true;
-            alert("+"\"Error Callback\""+ @")
+            alert(" + "\"Error Callback\""+ @")
                 });
 
 
