@@ -1,0 +1,15 @@
+C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.exe.config
+C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.exe
+C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.pdb
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.csprojResolveAssemblyReference.cache
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.Properties.Resources.resources
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.csproj.GenerateResource.Cache
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.exe
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.pdb
+C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.dll
+C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.SqlServer.dll
+C:\projects\AutoCreate\AutoCreate\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\projects\AutoCreate\AutoCreate\bin\Debug\Oracle.ManagedDataAccess.EntityFramework.dll
+C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.xml
+C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.SqlServer.xml
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.MainPanel.resources
