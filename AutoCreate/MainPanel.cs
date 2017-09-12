@@ -38,7 +38,6 @@ namespace AutoCreate
                     data_type as ColoumnType
                     from all_tab_columns 
                     where table_name = '" + txtTabelName.Text + "'").ToList();
-                
                 listBoxColoumn.DataSource=colNames;
                 listBoxColoumn.DisplayMember = "ColoumnDetails";
      
