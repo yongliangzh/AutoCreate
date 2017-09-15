@@ -96,43 +96,43 @@ namespace AutoCreate
             //string fmtTableName = txtTabelName.Text.Substring(0, 1).ToUpper() + txtTabelName.Text.Substring(1).ToLower();
             //xxxViewModel.cs
             string strViewModel =FormatModel(projectName, txtRootName.Text);
-            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Model\\" +txtRootName.Text))
+            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Model\\Tools"))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\"+ projectName +".Model\\" + txtRootName.Text);
+                Directory.CreateDirectory(txtPath.Text + "\\"+ projectName +".Model\\Tools");
             }
-            File.WriteAllText(txtPath.Text+ "\\"+ projectName + ".Model\\" + txtRootName.Text+"\\" + txtRootName.Text+"ViewModel.cs", strViewModel, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text+ "\\"+ projectName + ".Model\\Tools\\" + txtRootName.Text+"ViewModel.cs", strViewModel, Encoding.UTF8);
             
             //xxxRepository.cs
             string strRepository = FormatRepository(projectName, txtRootName.Text);
-            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Repository"))
+            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories"))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Repository");
+                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories");
             }
-            File.WriteAllText(txtPath.Text + "\\" + projectName + ".Repository\\" + txtRootName.Text + "Repository.cs", strRepository, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories\\" + txtRootName.Text + "Repository.cs", strRepository, Encoding.UTF8);
 
             //xxxBusiness.cs
             string strBusiness = FormatBusiness(projectName, txtRootName.Text);
-            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Business"))
+            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Business\\Tools"))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Business");
+                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Business\\Tools");
             }
-            File.WriteAllText(txtPath.Text + "\\" + projectName + ".Business\\" + txtRootName.Text + "Business.cs", strBusiness, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".Business\\Tools\\" + txtRootName.Text + "Business.cs", strBusiness, Encoding.UTF8);
 
             //xxxController.cs
             string strController = FormatController(projectName, txtRootName.Text);
-            if (!Directory.Exists(txtPath.Text + "\\" + projectName + "\\Controllers"))
+            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers"))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + "\\Controllers");
+                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers");
             }
-            File.WriteAllText(txtPath.Text + "\\" + projectName + "\\Controllers\\" + txtRootName.Text + "Controller.cs", strController, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers\\" + txtRootName.Text + "Controller.cs", strController, Encoding.UTF8);
 
             //Index.cshtml
             string strView = FormatView(txtRootName.Text);
-            if (!Directory.Exists(txtPath.Text + "\\" + projectName + "\\Views\\"+ txtRootName.Text))
+            if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + "\\Views\\" + txtRootName.Text);
+                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text);
             }
-            File.WriteAllText(txtPath.Text + "\\" + projectName + "\\Views\\" + txtRootName.Text+"\\Index.cshtml", strView, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text+"\\Index.cshtml", strView, Encoding.UTF8);
 
             MessageBox.Show("Mission Completed");
 
@@ -155,20 +155,22 @@ namespace AutoCreate
 
 <html>
 <head>
-    <meta name=" + "\"" + "viewport" + "\"" + " content=" + "\"" + "width = device - width" + "\"" + @" />
-        <title></title>
+    <meta name=" + "\"viewport\" content=\"width = device - width\"" + @" />
+        <title>"+fmtRootName+@"</title>
     
-        <link href = " + "\"" + "/Content/bootstrap.min.css" + "\"" + " rel = " + "\"" + "stylesheet" + "\"" + @" />
-           <link href = " + "\"" + "/Content/Site.css" + "\"" + " rel = " + "\"" + "stylesheet" + "\"" + @" />
+    <link href="+"\"https://fonts.font.im/css?family=Fjalla+One\" rel=\"stylesheet\" type=\"text/css\""+@">
+    <link rel="+"\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\""+@">
 
           </head>
           <body>
-              <div ng - app = " + "\"" + "myApp" + "\"" + " ng - controller = " + "\"" + "myCtrl" + "\"" + @">
-                       <div class=" + "\"" + "col-sm-12" + "\"" + @">
-
-            <div class=" + "\"" + "col -sm-4" + "\"" + @">
+              <div ng - app = " + "\"myApp\" ng - controller = \"myCtrl\"" + @">
+                       <div class=" + "\"col-sm-12\"  style = \"margin-bottom:30px\"" + @">
+            <div class="+"\"page - header\" style=\"font - family: 'Fjalla One', sans - serif; \""+@">
+                       <h1>"+ fmtRootName + @"<small>"+ fmtRootName + @"</small></h1>
+                      </div>
+                      <div class=" + "\"col -sm-4\"" + @">
                 <strong>Search Type</strong>
-                <select class=" + "\"" + "form-control" + "\"" + " ng -change=" + "\"" + "change(type)" + "\"" + " ng -model=" + "\"" + "type" + "\">";
+                <select class=" + "\"form-control\" ng -change=\"change(type)\" ng -model=\"type\">";
             
             for (int i = 0; i <listBoxAddToSelect.Items.Count; i++)
             {
@@ -180,18 +182,18 @@ namespace AutoCreate
             str += @"
                 </select>
              </div>
-             <div class=" + "\"" + "col-sm-4" + "\"" + @">
+             <div class=" + "\"col-sm-4\"" + @">
                 <strong>Search Text</strong>
                 <input type = " + "\"text\" class=\"form-control\" ng-show=\"showText\" ng-model=\"searchText\" ng-keyup=\"searchKeyUp($event)" + "\"" + @" />
-                <input type = " + "\"date\" class=\"form-control\" ng-hide=\"showText\" ng-model=\"searchDate" + "\"" + @">
+                <input type = " + "\"date\" class=\"form-control\" ng-hide=\"showText\" ng-model=\"searchDate\"" + @">
             </div>
-            <div class=" + "\"" + "col-sm-4" + "\"" + @">
+            <div class=" + "\"col-sm-4\"" + @">
                 <span></span><br>
                 <button class=" + "\"btn btn-warning\" type =\"button\" ng-click=\"search()\">Search</button>" + @"
             </div>
         </div>
         <div style = " + "\"padding:90px 18px\"" + @">
-            <table class=" + "\"table  table-striped table-bordered table-hover " + "\"" + @">
+            <table class=" + "\"table  table-striped table-bordered table-hover \"" + @">
                 <thead>
                     <tr>";
             for (int i = 0; i <listBoxAddToShow.Items.Count; i++)
@@ -249,14 +251,14 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
         }
                 $scope.searchByUrl = false;
                 $location.search({
-                    coloumnName: $scope.type,
+                    type: $scope.type,
                     searchText: $scope.type != 'DateCreated' ? $scope.searchText : moment($scope.searchDate).format("+"\"YYYY-M-D\""+ @")
                 });
         
                 $http.post(
                   '/"+txtRootName.Text+ @"/Get" + fmtRootName + @"',
                    {
-                       coloumnName: $scope.type,
+                       type: $scope.type,
                        searchText: $scope.type != 'DateCreated' ? $scope.searchText : moment($scope.searchDate).format(" + "\"YYYY-M-D\"" + @")
 
                    }
@@ -276,11 +278,11 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
             $rootScope.$on('$locationChangeSuccess',
             function(event) {
         var searchObj = $location.search();
-        if (!searchObj.coloumnName || !$scope.searchByUrl) {
+        if (!searchObj.type || !$scope.searchByUrl) {
             return;
         }
-                $scope.type = searchObj.coloumnName;
-        if (searchObj.coloumnName != 'DateCreated')
+                $scope.type = searchObj.type;
+        if (searchObj.type != 'DateCreated')
         {
                     $scope.searchText = searchObj.searchText;
         }
@@ -289,7 +291,7 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
             
                     $scope.searchDate = new Date(searchObj.searchText)
                 }
-                $scope.showText = searchObj.coloumnName == 'DateCreated' ? false : true;
+                $scope.showText = searchObj.type == 'DateCreated' ? false : true;
                 $scope.search();
     })
             $scope.searchKeyUp = function(e) {
@@ -308,32 +310,37 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
         }
         public string FormatController(string projectName, string fmtRootName)
         {
-            string str = @"using "+ projectName + @".Business;
+            string str = @"using "+ projectName + @".Business.Tools;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
-namespace " + projectName + @".Controllers
+namespace " + projectName + @".UI.Areas.Tools.Controllers
 {
+    [Authorize]
     public class " + fmtRootName + @"Controller : Controller
     {
 
-        private " + fmtRootName + @"Business obj;
+        private " + fmtRootName + @"Business "+ fmtRootName + @"Biz;
         public ActionResult Index()
         {
             return View();
         }
         public " + fmtRootName + @"Controller()
         {
-            obj = new " + fmtRootName + @"Business();
+            " + fmtRootName + @"Biz = new " + fmtRootName + @"Business();
         }
-        public JsonResult Get" + fmtRootName + @"(string searchText, string coloumnName)
+        public JsonResult Get" + fmtRootName + @"(string searchText, string type)
         {
-            if (string.IsNullOrEmpty(searchText) || string.IsNullOrEmpty(coloumnName))
+            if (string.IsNullOrEmpty(searchText) || string.IsNullOrEmpty(type))
             {
                 return Json(null);
             }
             else
             {
-                return Json(obj.Get" + fmtRootName + @"(searchText, coloumnName));
+                return Json(" + fmtRootName + @"Biz.Get" + fmtRootName + @"(searchText, type));
 
             }
 
@@ -349,7 +356,7 @@ namespace " + projectName + @".Controllers
             string str = "";
             str = @"using System;
 
-namespace " + projectName + @".Model." + fmtRootName + @"
+namespace " + projectName + @".Model.Tools
 {
     public class " + fmtRootName + @"ViewModel
     {
@@ -373,21 +380,21 @@ namespace " + projectName + @".Model." + fmtRootName + @"
         public string FormatBusiness(string projectName, string fmtRootName)
         {
             string str = @"using System.Collections.Generic;
-using "+ projectName + @".Model."+ fmtRootName + @";
-using " + projectName + @".Repository;
-namespace " + projectName + @".Business
+using "+ projectName + @".Model.Tools;
+using " + projectName + @".Repository.Tools;
+namespace " + projectName + @".Business.Tools
 {
     public class " + fmtRootName + @"Business
     {
-        private " + fmtRootName + @"Repository obj;
+        private ToolDataUnitOfWork uow;
         public " + fmtRootName + @"Business()
         {
-            obj = new " + fmtRootName + @"Repository();
+            uow = new ToolDataUnitOfWork();
         }
-        public List<" + fmtRootName + @"ViewModel> Get" + fmtRootName + @"(string searchText, string coloumnName)
+        public List<" + fmtRootName + @"ViewModel> Get" + fmtRootName + @"(string searchText, string type)
         {
 
-            return obj.Get" + fmtRootName + @"(searchText, coloumnName);
+            return uow."+ fmtRootName + @".Repository.Get" + fmtRootName + @"(searchText, type);
 
         }
     }
@@ -398,21 +405,17 @@ namespace " + projectName + @".Business
         {
             string str = @"using System.Collections.Generic;
 using System.Linq;
-using " + projectName + @".Model." + fmtRootName + @";
-using " + projectName + @".Repository.Tools;
+using " + projectName + @".Model.Tools;
 using Oracle.ManagedDataAccess.Client;
-namespace " + projectName + @".Repository
+using System;
+namespace " + projectName + @".Repository.Tools.Repository
 {
-    public class " + fmtRootName + @"Repository
+    public class " + fmtRootName + @"Repository: BaseRepository<DBNull>
     {
 
-        private ToolsDbContext db;
+        public ActivityStreamRepository(System.Data.Entity.DbContext _db) : base(_db) { }
 
-        public " + fmtRootName + @"Repository()
-        {
-            db = new ToolsDbContext();
-        }
-        public List<" + fmtRootName + @"Model> Get" + fmtRootName + @"(string searchText, string coloumnName)
+        public List<" + fmtRootName + @"Model> Get" + fmtRootName + @"(string searchText, string type)
         {
             string sql = @" + "\"" + @"select
 ";
@@ -439,7 +442,7 @@ namespace " + projectName + @".Repository
                 {
                     if (!strSelStringFlag)
                     {
-                        strSelString = "            List<string> coloumnNameList = new List<string> { \""+ s[0] + "\"";//FormatName(s[0]) 
+                        strSelString = "            List<string> typeList = new List<string> { \""+ s[0] + "\"";//FormatName(s[0]) 
                         strSelStringFlag = true;
                     }
                     else
@@ -451,18 +454,18 @@ namespace " + projectName + @".Repository
                 if (s[1].Contains("DATE"))
                 {
                     strSelTime += @"
-            if (coloumnName == " + "\"" + s[0] + "\"" + @")
+            if (type == " + "\"" + s[0] + "\"" + @")
             {
-                return db.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"trunc("+s[0]+@") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
+                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"trunc("+s[0]+@") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
             }
 ";
                 }
        
             }
             strSelString += @" };
-            if (coloumnNameList.Contains(coloumnName))
+            if (typeList.Contains(type))
             {
-                return db.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"instr(Lower(" + "\"" + @" + coloumnName + " + "\"" + @"),Lower(:searchText))>0" + "\"" + @", parameters.ToArray()).ToList();
+                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"instr(Lower(" + "\"" + @" + type + " + "\"" + @"),Lower(:searchText))>0" + "\"" + @", parameters.ToArray()).ToList();
             }
             else
             {
@@ -509,7 +512,7 @@ public string FormatDbTypeToCsType(string dbType)
             }
             if (dbType.Contains("NUMBER"))
             {
-                return "long";
+                return "decimal";
             }
             if (dbType.Contains("DATE"))
             {
@@ -521,13 +524,11 @@ public string FormatDbTypeToCsType(string dbType)
     public class Coloumn
     {
         public string ColoumnDetails { get; set; }
-        public string ColoumnName { get; set; }
+        public string type { get; set; }
         public string ColoumnType { get; set; }
     }
     public class ToolsDbContext : DbContext
     {
-
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("IDSERV");
