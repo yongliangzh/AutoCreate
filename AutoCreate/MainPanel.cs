@@ -23,8 +23,8 @@ namespace AutoCreate
         protected ToolsDbContext db = new ToolsDbContext();
         private void MainPanel_Load(object sender, EventArgs e)
         {
-            
-            tableNames=db.Database.SqlQuery<string>("SELECT TABLE_NAME FROM USER_TABLES").ToList();
+
+            tableNames = db.Database.SqlQuery<string>("SELECT TABLE_NAME FROM USER_TABLES").ToList();
 
         }
 
@@ -32,15 +32,15 @@ namespace AutoCreate
         {
             if (tableNames.Contains(txtTabelName.Text))
             {
-                colNames= db.Database.SqlQuery<Coloumn>(@"select 
+                colNames = db.Database.SqlQuery<Coloumn>(@"select 
                     concat(concat(column_name,' '),data_type) as ColoumnDetails ,
                     column_name as ColoumnName,
                     data_type as ColoumnType
                     from all_tab_columns 
                     where table_name = '" + txtTabelName.Text + "'").ToList();
-                listBoxColoumn.DataSource=colNames;
+                listBoxColoumn.DataSource = colNames;
                 listBoxColoumn.DisplayMember = "ColoumnDetails";
-     
+
             }
             else
             {
@@ -56,9 +56,9 @@ namespace AutoCreate
                 {
                     continue;
                 }
-               listBoxAddToSelect.Items.Add(listBoxColoumn.GetItemText( listBoxColoumn.SelectedItems[i]));
+                listBoxAddToSelect.Items.Add(listBoxColoumn.GetItemText(listBoxColoumn.SelectedItems[i]));
             }
-            
+
         }
 
         private void btnAddToShow_Click(object sender, EventArgs e)
@@ -74,16 +74,14 @@ namespace AutoCreate
         }
         private void btnDeleteSelect_Click(object sender, EventArgs e)
         {
-           
-                listBoxAddToSelect.Items.Remove(listBoxAddToSelect.GetItemText(listBoxAddToSelect.SelectedItem));
-            
+            listBoxAddToSelect.Items.Remove(listBoxAddToSelect.GetItemText(listBoxAddToSelect.SelectedItem));
         }
 
         private void btnDeleteShow_Click(object sender, EventArgs e)
         {
-         
-                listBoxAddToShow.Items.Remove(listBoxAddToShow.GetItemText(listBoxAddToShow.SelectedItems));
-           
+
+            listBoxAddToShow.Items.Remove(listBoxAddToShow.GetItemText(listBoxAddToShow.SelectedItems));
+
         }
         private void btnCreate_Click(object sender, EventArgs e)
         {
@@ -91,17 +89,17 @@ namespace AutoCreate
             {
                 return;
             }
-            string projectName= txtPath.Text.Split('\\')[txtPath.Text.Split('\\').Count()-1];
+            string projectName = txtPath.Text.Split('\\')[txtPath.Text.Split('\\').Count() - 1];
 
             //string fmtTableName = txtTabelName.Text.Substring(0, 1).ToUpper() + txtTabelName.Text.Substring(1).ToLower();
             //xxxViewModel.cs
-            string strViewModel =FormatModel(projectName, txtRootName.Text);
+            string strViewModel = FormatModel(projectName, txtRootName.Text);
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Model\\Tools"))
             {
-                Directory.CreateDirectory(txtPath.Text + "\\"+ projectName +".Model\\Tools");
+                Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Model\\Tools");
             }
-            File.WriteAllText(txtPath.Text+ "\\"+ projectName + ".Model\\Tools\\" + txtRootName.Text+"ViewModel.cs", strViewModel, Encoding.UTF8);
-            
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".Model\\Tools\\" + txtRootName.Text + "ViewModel.cs", strViewModel, Encoding.UTF8);
+
             //xxxRepository.cs
             string strRepository = FormatRepository(projectName, txtRootName.Text);
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories"))
@@ -132,7 +130,7 @@ namespace AutoCreate
             {
                 Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text);
             }
-            File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text+"\\Index.cshtml", strView, Encoding.UTF8);
+            File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text + "\\Index.cshtml", strView, Encoding.UTF8);
 
             MessageBox.Show("Mission Completed");
 
@@ -156,28 +154,28 @@ namespace AutoCreate
 <html>
 <head>
     <meta name=" + "\"viewport\" content=\"width = device - width\"" + @" />
-        <title>"+fmtRootName+@"</title>
+        <title>" + fmtRootName + @"</title>
     
-    <link href="+"\"https://fonts.font.im/css?family=Fjalla+One\" rel=\"stylesheet\" type=\"text/css\""+@">
-    <link rel="+"\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\""+@">
+    <link href=" + "\"https://fonts.font.im/css?family=Fjalla+One\" rel=\"stylesheet\" type=\"text/css\"" + @">
+    <link rel=" + "\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\"" + @">
 
           </head>
           <body>
-              <div ng - app = " + "\"myApp\" ng - controller = \"myCtrl\"" + @">
+              <div ng - app = " + "\"myApp\" ng-controller = \"myCtrl\"" + @">
                        <div class=" + "\"col-sm-12\"  style = \"margin-bottom:30px\"" + @">
-            <div class="+"\"page - header\" style=\"font - family: 'Fjalla One', sans - serif; \""+@">
-                       <h1>"+ fmtRootName + @"<small>"+ fmtRootName + @"</small></h1>
+            <div class=" + "\"page - header\" style=\"font-family: 'Fjalla One', sans-serif; \"" + @">
+                       <h1>" + fmtRootName + @"<small>" + fmtRootName + @"</small></h1>
                       </div>
-                      <div class=" + "\"col -sm-4\"" + @">
+                      <div class=" + "\"col-sm-4\"" + @">
                 <strong>Search Type</strong>
-                <select class=" + "\"form-control\" ng -change=\"change(type)\" ng -model=\"type\">";
-            
-            for (int i = 0; i <listBoxAddToSelect.Items.Count; i++)
+                <select class=" + "\"form-control\" ng -change=\"change(type)\" ng-model=\"type\">";
+
+            for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
             {
                 string[] s = listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[i]).Split(' ');
                 str += @"
-<option value = " + "\"" + s[0]+ "\">"+ FormatName1(s[0]) + " </option>";
-                
+<option value = " + "\"" + s[0] + "\">" + FormatName1(s[0]) + " </option>";
+
             }
             str += @"
                 </select>
@@ -196,7 +194,7 @@ namespace AutoCreate
             <table class=" + "\"table  table-striped table-bordered table-hover \"" + @">
                 <thead>
                     <tr>";
-            for (int i = 0; i <listBoxAddToShow.Items.Count; i++)
+            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
             {
                 string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
                 str += @"
@@ -208,28 +206,28 @@ namespace AutoCreate
                 </thead>
                 <tbody>
                     <tr ng-repeat= " + "\"x in dataInfo\">";
-            for (int i = 0; i <listBoxAddToShow.Items.Count; i++)
+            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
             {
                 string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
                 str += @"
 <td>{{x." + FormatName(s[0]) + "}} </td>";
 
             }
-                str+=@"
+            str += @"
                     </tr>
 
                 </tbody>
             </table>
         </div>
     </div>
-    <script src = "+"\"/Scripts/angular.min.js\""+@"></script>
+    <script src = " + "\"/Scripts/angular.min.js\"" + @"></script>
     <script src=" + "\"/Scripts/moment.js\"" + @" ></script>
     <script>
         var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http, $location, $rootScope)
 {
             $scope.showText = true;
-            $scope.type = "+"\""+ FormatName(listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[0]).Split(' ')[0]) + "\""+@";
+            $scope.type = " + "\"" + FormatName(listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[0]).Split(' ')[0]) + "\"" + @";
             $scope.change = function(type) {
                 $scope.showText = $scope.type == 'DateCreated' ? false : true;
 
@@ -240,23 +238,23 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
         if ($scope.type != 'DateCreated') {
 
             if (!$scope.searchText) {
-                alert("+"\"Search Text Is Required\""+ @");
+                alert(" + "\"Search Text Is Required\"" + @");
                 return;
             }
         } else {
             if (!$scope.searchDate) {
-                alert(" + "\"Search Date Is Required\""+ @");
+                alert(" + "\"Search Date Is Required\"" + @");
                 return;
             }
         }
                 $scope.searchByUrl = false;
                 $location.search({
                     type: $scope.type,
-                    searchText: $scope.type != 'DateCreated' ? $scope.searchText : moment($scope.searchDate).format("+"\"YYYY-M-D\""+ @")
+                    searchText: $scope.type != 'DateCreated' ? $scope.searchText : moment($scope.searchDate).format(" + "\"YYYY-M-D\"" + @")
                 });
         
                 $http.post(
-                  '/"+txtRootName.Text+ @"/Get" + fmtRootName + @"',
+                  '/" + txtRootName.Text + @"/Get" + fmtRootName + @"',
                    {
                        type: $scope.type,
                        searchText: $scope.type != 'DateCreated' ? $scope.searchText : moment($scope.searchDate).format(" + "\"YYYY-M-D\"" + @")
@@ -270,7 +268,7 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
             })
                 }).error(function(response) {
                     $scope.searchByUrl = true;
-            alert(" + "\"Error Callback\""+ @")
+            alert(" + "\"Error Callback\"" + @")
                 });
 
 
@@ -310,7 +308,7 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
         }
         public string FormatController(string projectName, string fmtRootName)
         {
-            string str = @"using "+ projectName + @".Business.Tools;
+            string str = @"using " + projectName + @".Business.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -323,7 +321,7 @@ namespace " + projectName + @".UI.Areas.Tools.Controllers
     public class " + fmtRootName + @"Controller : Controller
     {
 
-        private " + fmtRootName + @"Business "+ fmtRootName + @"Biz;
+        private " + fmtRootName + @"Business " + fmtRootName + @"Biz;
         public ActionResult Index()
         {
             return View();
@@ -370,7 +368,7 @@ namespace " + projectName + @".Model.Tools
 
 ";
             }
-            str+=@"
+            str += @"
     }
 }
 ";
@@ -380,7 +378,7 @@ namespace " + projectName + @".Model.Tools
         public string FormatBusiness(string projectName, string fmtRootName)
         {
             string str = @"using System.Collections.Generic;
-using "+ projectName + @".Model.Tools;
+using " + projectName + @".Model.Tools;
 using " + projectName + @".Repository.Tools;
 namespace " + projectName + @".Business.Tools
 {
@@ -394,7 +392,7 @@ namespace " + projectName + @".Business.Tools
         public List<" + fmtRootName + @"ViewModel> Get" + fmtRootName + @"(string searchText, string type)
         {
 
-            return uow."+ fmtRootName + @".Repository.Get" + fmtRootName + @"(searchText, type);
+            return uow." + fmtRootName + @".Repository.Get" + fmtRootName + @"(searchText, type);
 
         }
     }
@@ -413,7 +411,7 @@ namespace " + projectName + @".Repository.Tools.Repository
     public class " + fmtRootName + @"Repository: BaseRepository<DBNull>
     {
 
-        public ActivityStreamRepository(System.Data.Entity.DbContext _db) : base(_db) { }
+        public " + fmtRootName + @"Repository(System.Data.Entity.DbContext _db) : base(_db) { }
 
         public List<" + fmtRootName + @"Model> Get" + fmtRootName + @"(string searchText, string type)
         {
@@ -423,44 +421,44 @@ namespace " + projectName + @".Repository.Tools.Repository
             {
                 string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
                 str +=
-@"                                "+s[0]+" as "+FormatName(s[0])+@"
+@"                                " + s[0] + " as " + FormatName(s[0]) + @"
 ";
             }
             str += "                            from " + txtTabelName.Text + " where " + "\"" + @";
             List < OracleParameter > parameters = new List<OracleParameter>();
             parameters.Add(new OracleParameter(" + "\"" + @"searchText" + "\"" + @", searchText));";
-            
+
             string strSelString = "";
             string strSelTime = "";
             bool strSelStringFlag = false;
-            for (int i=0;i< listBoxAddToSelect.Items.Count; i++)
+            for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
             {
-                
+
 
                 string[] s = listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[i]).Split(' ');
-                if (s[1].Contains("CHAR")||s[1].Contains("NUMBER"))
+                if (s[1].Contains("CHAR") || s[1].Contains("NUMBER"))
                 {
                     if (!strSelStringFlag)
                     {
-                        strSelString = "            List<string> typeList = new List<string> { \""+ s[0] + "\"";//FormatName(s[0]) 
+                        strSelString = "            List<string> typeList = new List<string> { \"" + s[0] + "\"";//FormatName(s[0]) 
                         strSelStringFlag = true;
                     }
                     else
                     {
-                        strSelString += ",\""+ s[0] +"\"";
+                        strSelString += ",\"" + s[0] + "\"";
                     }
-                    
+
                 }
                 if (s[1].Contains("DATE"))
                 {
                     strSelTime += @"
             if (type == " + "\"" + s[0] + "\"" + @")
             {
-                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"trunc("+s[0]+@") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
+                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"trunc(" + s[0] + @") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
             }
 ";
                 }
-       
+
             }
             strSelString += @" };
             if (typeList.Contains(type))
@@ -489,7 +487,7 @@ namespace " + projectName + @".Repository.Tools.Repository
             string[] nameArray = name.Split('_');
             for (int i = 0; i < nameArray.Count(); i++)
             {
-                str += nameArray[i].Substring(0,1).ToUpper()+ nameArray[i].Substring(1).ToLower();
+                str += nameArray[i].Substring(0, 1).ToUpper() + nameArray[i].Substring(1).ToLower();
             }
 
             return str;
@@ -500,11 +498,11 @@ namespace " + projectName + @".Repository.Tools.Repository
             string[] nameArray = name.Split('_');
             for (int i = 0; i < nameArray.Count(); i++)
             {
-                str += nameArray[i].Substring(0, 1).ToUpper()+ nameArray[i].Substring(1).ToLower()+" ";
+                str += nameArray[i].Substring(0, 1).ToUpper() + nameArray[i].Substring(1).ToLower() + " ";
             }
-            return str.Substring(0,str.Length-1);
-}
-public string FormatDbTypeToCsType(string dbType)
+            return str.Substring(0, str.Length - 1);
+        }
+        public string FormatDbTypeToCsType(string dbType)
         {
             if (dbType.Contains("CHAR"))
             {
