@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Entity;
 using System.IO;
 namespace AutoCreate
 {
@@ -19,7 +14,7 @@ namespace AutoCreate
             InitializeComponent();
         }
         protected List<string> tableNames = new List<string>();
-        protected List<Coloumn> colNames = new List<Coloumn>();
+        protected List<string> colNames = new List<string>();
         protected ToolsDbContext db = new ToolsDbContext();
         private void MainPanel_Load(object sender, EventArgs e)
         {
@@ -32,12 +27,10 @@ namespace AutoCreate
         {
             if (tableNames.Contains(txtTabelName.Text))
             {
-                colNames = db.Database.SqlQuery<Coloumn>(@"select 
-                    concat(concat(column_name,' '),data_type) as ColoumnDetails ,
-                    column_name as ColoumnName,
-                    data_type as ColoumnType
+                colNames = db.Database.SqlQuery<string>(@"select 
+                    concat(concat(column_name,' '),data_type) as ColoumnDetails 
                     from all_tab_columns 
-                    where table_name = '" + txtTabelName.Text + "'").ToList();
+                    where table_name = '" + txtTabelName.Text + "' order by rownum desc").ToList();
                 listBoxColoumn.DataSource = colNames;
                 listBoxColoumn.DisplayMember = "ColoumnDetails";
 
@@ -91,7 +84,6 @@ namespace AutoCreate
             }
             string projectName = txtPath.Text.Split('\\')[txtPath.Text.Split('\\').Count() - 1];
 
-            //string fmtTableName = txtTabelName.Text.Substring(0, 1).ToUpper() + txtTabelName.Text.Substring(1).ToLower();
             //xxxViewModel.cs
             string strViewModel = FormatModel(projectName, txtRootName.Text);
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Model\\Tools"))
@@ -101,7 +93,15 @@ namespace AutoCreate
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".Model\\Tools\\" + txtRootName.Text + "ViewModel.cs", strViewModel, Encoding.UTF8);
 
             //xxxRepository.cs
-            string strRepository = FormatRepository(projectName, txtRootName.Text);
+            string strRepository = "";
+            if (rdbSingleSearch.Checked)
+            {
+                strRepository = FormatRepository1(projectName, txtRootName.Text);
+            }
+            else
+            {
+                strRepository = FormatRepository1(projectName, txtRootName.Text);
+            }
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories"))
             {
                 Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".Repository\\Tools\\Repositories");
@@ -117,15 +117,17 @@ namespace AutoCreate
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".Business\\Tools\\" + txtRootName.Text + "Business.cs", strBusiness, Encoding.UTF8);
 
             //xxxController.cs
-            string strController = FormatController(projectName, txtRootName.Text);
+            string strController = strController = FormatController(projectName, txtRootName.Text);
+
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers"))
             {
                 Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers");
             }
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers\\" + txtRootName.Text + "Controller.cs", strController, Encoding.UTF8);
+            
 
             //Index.cshtml
-            string strView = FormatView(txtRootName.Text);
+            string strView = FormatView1(txtRootName.Text);
             if (!Directory.Exists(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text))
             {
                 Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text);
@@ -143,8 +145,9 @@ namespace AutoCreate
             path.ShowDialog();
             txtPath.Text = path.SelectedPath;
         }
-        public string FormatView(string fmtRootName)
+        public string FormatView1(string fmtRootName)
         {
+
             string str = @"@{
     Layout = null;
 }
@@ -209,8 +212,16 @@ namespace AutoCreate
             for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
             {
                 string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
-                str += @"
+                if (s[1] != "DATE")
+                {
+                    str += @"
 <td>{{x." + FormatName(s[0]) + "}} </td>";
+                }
+                else
+                {
+                    str += @"
+<td>{{x." + FormatName(s[0]) + "|date:'yyyy/MM/dd HH:mm:ss'}} </td>";
+                }
 
             }
             str += @"
@@ -227,7 +238,7 @@ namespace AutoCreate
 app.controller('myCtrl', function($scope, $http, $location, $rootScope)
 {
             $scope.showText = true;
-            $scope.type = " + "\"" + FormatName(listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[0]).Split(' ')[0]) + "\"" + @";
+            $scope.type = " + "\"" + listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[0]).Split(' ')[0] + "\"" + @";
             $scope.change = function(type) {
                 $scope.showText = $scope.type == 'DateCreated' ? false : true;
 
@@ -399,7 +410,7 @@ namespace " + projectName + @".Business.Tools
 }";
             return str;
         }
-        public string FormatRepository(string projectName, string fmtRootName)
+        public string FormatRepository1(string projectName, string fmtRootName)
         {
             string str = @"using System.Collections.Generic;
 using System.Linq;
@@ -479,6 +490,75 @@ namespace " + projectName + @".Repository.Tools.Repository
             return str;
         }
 
+//        public string FormatRepository2(string projectName, string fmtRootName)
+//        {
+//            string str = @"using System.Collections.Generic;
+//using System.Linq;
+//using ABE.Model.Tools;
+//using Oracle.ManagedDataAccess.Client;
+//using ABE.Repository;
+//using System;
+
+//namespace ABE.Repository.Tools.Repositories
+//{
+//    public class ParametersRepository : BaseRepository<DBNull>
+//    {
+//        public ParametersRepository(System.Data.Entity.DbContext _db) : base(_db) { }
+//        public List<ParametersViewModel> GetParameters(";
+//            string strVariable = "";
+//            for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
+//            {
+//                string[] s= listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[i]).Split(' ');
+//                strVariable +="string " FormatName2(s[0])+",";
+//            }
+//            str+=strVariable.Substring(0, strVariable.Length - 1);
+//            str+=@"
+//            )
+//        {
+//            string sql = @" + "\"" + @"select
+//";
+//            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
+//            {
+//                string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
+//                str +=
+//@"                                " + s[0] + " as " + FormatName(s[0]) + @"
+//";
+//            }
+//            str += "                            from " + txtTabelName.Text + " where rownum<50 " + "\"" + @";
+
+//            List<OracleParameter> parameters = new List<OracleParameter>();
+//            if (!string.IsNullOrEmpty(entityType))
+//            {
+//                sql += " and instr(Lower(ENTITY_TYPE),Lower(:entityType))>0 ";
+//                parameters.Add(new OracleParameter("entityType", entityType));
+//            }
+//            if (!string.IsNullOrEmpty(seqIdEntity))
+//            {
+//                sql += " and instr(Lower(SEQID_ENTITY),Lower(:seqIdEntity))>0 ";
+//                parameters.Add(new OracleParameter("seqIdEntity", seqIdEntity));
+//            }
+//            if (!string.IsNullOrEmpty(key))
+//            {
+//                sql += " and instr(Lower(KEY),Lower(:key))>0 ";
+//                parameters.Add(new OracleParameter("key", key));
+//            }
+//            if (!string.IsNullOrEmpty(valueString))
+//            {
+//                sql += " and instr(Lower(VALUE_STRING),Lower(:valueString))>0 ";
+//                parameters.Add(new OracleParameter("valueString", valueString));
+//            }
+
+//            return DbContext.Database.SqlQuery<ParametersViewModel>(sql, parameters.ToArray()).ToList();
+
+//        }
+
+//    }
+//}
+
+//";
+
+//            return str;
+//        }
 
 
         public string FormatName(string name)
@@ -502,7 +582,26 @@ namespace " + projectName + @".Repository.Tools.Repository
             }
             return str.Substring(0, str.Length - 1);
         }
-        public string FormatDbTypeToCsType(string dbType)
+        public string FormatName2(string name)
+        {
+            string str = "";
+            string[] nameArray = name.Split('_');
+    int count = 0;
+            for (int i = 0; i < nameArray.Count(); i++)
+            {
+        if (count == 0)
+        {
+            str += nameArray[i].ToLower() + " ";
+            count++;
+        }
+        else
+        {
+            str += nameArray[i].Substring(0, 1).ToUpper() + nameArray[i].Substring(1).ToLower() + " ";
+        }
+            }
+            return str.Substring(0, str.Length - 1);
+        }
+public string FormatDbTypeToCsType(string dbType)
         {
             if (dbType.Contains("CHAR"))
             {
@@ -510,28 +609,13 @@ namespace " + projectName + @".Repository.Tools.Repository
             }
             if (dbType.Contains("NUMBER"))
             {
-                return "decimal";
+                return "decimal ?";
             }
             if (dbType.Contains("DATE"))
             {
-                return "DateTime";
+                return "DateTime ?";
             }
             return "object";
         }
     }
-    public class Coloumn
-    {
-        public string ColoumnDetails { get; set; }
-        public string type { get; set; }
-        public string ColoumnType { get; set; }
-    }
-    public class ToolsDbContext : DbContext
-    {
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.HasDefaultSchema("IDSERV");
-        }
-
-    }
-
 }
