@@ -1,7 +1,6 @@
 C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.exe.config
 C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.exe
 C:\projects\AutoCreate\AutoCreate\bin\Debug\AutoCreate.pdb
-C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.csprojResolveAssemblyReference.cache
 C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.Properties.Resources.resources
 C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.csproj.GenerateResource.Cache
 C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.exe

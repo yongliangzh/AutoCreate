@@ -20,6 +20,7 @@ namespace AutoCreate
         {
 
             tableNames = db.Database.SqlQuery<string>("SELECT TABLE_NAME FROM USER_TABLES").ToList();
+            txtPath.Text = @"C:\projects\CompanyProjects\ABE";
 
         }
 
@@ -134,8 +135,11 @@ namespace AutoCreate
             }
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text + "\\Index.cshtml", strView, Encoding.UTF8);
 
-            MessageBox.Show("Mission Completed");
-
+            DialogResult dr = MessageBox.Show("Mission Completed");
+            if (dr == DialogResult.OK)
+            {
+                System.Environment.Exit(0);
+            }
 
         }
 
@@ -274,8 +278,17 @@ app.controller('myCtrl', function($scope, $http, $location, $rootScope)
                 ).success(function(response) {
                     $scope.searchByUrl = true;
                     $scope.dataInfo = response;
-            angular.forEach($scope.dataInfo, function(data) {
-                data.DateCreated = new Date(parseInt(data.DateCreated.replace(/\D/igm,'')));
+            angular.forEach($scope.dataInfo, function(data) {";
+            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
+            {
+                string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
+                if (s[1] == "DATE")
+                {
+                    str += @"
+                  data."+FormatName(s[0])+ " =  data." + FormatName(s[0]) + " != null ? new Date(parseInt(data." + FormatName(s[0]) + @".replace(/\D/igm, ''))) : null;";
+                }
+            }
+            str+=@"
             })
                 }).error(function(response) {
                     $scope.searchByUrl = true;
