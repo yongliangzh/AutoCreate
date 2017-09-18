@@ -124,7 +124,7 @@ namespace AutoCreate
                 Directory.CreateDirectory(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers");
             }
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Controllers\\" + txtRootName.Text + "Controller.cs", strController, Encoding.UTF8);
-            
+
 
             //Index.cshtml
             string strView = FormatView1(txtRootName.Text);
@@ -490,75 +490,75 @@ namespace " + projectName + @".Repository.Tools.Repository
             return str;
         }
 
-//        public string FormatRepository2(string projectName, string fmtRootName)
-//        {
-//            string str = @"using System.Collections.Generic;
-//using System.Linq;
-//using ABE.Model.Tools;
-//using Oracle.ManagedDataAccess.Client;
-//using ABE.Repository;
-//using System;
+        //        public string FormatRepository2(string projectName, string fmtRootName)
+        //        {
+        //            string str = @"using System.Collections.Generic;
+        //using System.Linq;
+        //using ABE.Model.Tools;
+        //using Oracle.ManagedDataAccess.Client;
+        //using ABE.Repository;
+        //using System;
 
-//namespace ABE.Repository.Tools.Repositories
-//{
-//    public class ParametersRepository : BaseRepository<DBNull>
-//    {
-//        public ParametersRepository(System.Data.Entity.DbContext _db) : base(_db) { }
-//        public List<ParametersViewModel> GetParameters(";
-//            string strVariable = "";
-//            for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
-//            {
-//                string[] s= listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[i]).Split(' ');
-//                strVariable +="string " FormatName2(s[0])+",";
-//            }
-//            str+=strVariable.Substring(0, strVariable.Length - 1);
-//            str+=@"
-//            )
-//        {
-//            string sql = @" + "\"" + @"select
-//";
-//            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
-//            {
-//                string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
-//                str +=
-//@"                                " + s[0] + " as " + FormatName(s[0]) + @"
-//";
-//            }
-//            str += "                            from " + txtTabelName.Text + " where rownum<50 " + "\"" + @";
+        //namespace ABE.Repository.Tools.Repositories
+        //{
+        //    public class ParametersRepository : BaseRepository<DBNull>
+        //    {
+        //        public ParametersRepository(System.Data.Entity.DbContext _db) : base(_db) { }
+        //        public List<ParametersViewModel> GetParameters(";
+        //            string strVariable = "";
+        //            for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
+        //            {
+        //                string[] s= listBoxAddToSelect.GetItemText(listBoxAddToSelect.Items[i]).Split(' ');
+        //                strVariable +="string " FormatName2(s[0])+",";
+        //            }
+        //            str+=strVariable.Substring(0, strVariable.Length - 1);
+        //            str+=@"
+        //            )
+        //        {
+        //            string sql = @" + "\"" + @"select
+        //";
+        //            for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
+        //            {
+        //                string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
+        //                str +=
+        //@"                                " + s[0] + " as " + FormatName(s[0]) + @"
+        //";
+        //            }
+        //            str += "                            from " + txtTabelName.Text + " where rownum<50 " + "\"" + @";
 
-//            List<OracleParameter> parameters = new List<OracleParameter>();
-//            if (!string.IsNullOrEmpty(entityType))
-//            {
-//                sql += " and instr(Lower(ENTITY_TYPE),Lower(:entityType))>0 ";
-//                parameters.Add(new OracleParameter("entityType", entityType));
-//            }
-//            if (!string.IsNullOrEmpty(seqIdEntity))
-//            {
-//                sql += " and instr(Lower(SEQID_ENTITY),Lower(:seqIdEntity))>0 ";
-//                parameters.Add(new OracleParameter("seqIdEntity", seqIdEntity));
-//            }
-//            if (!string.IsNullOrEmpty(key))
-//            {
-//                sql += " and instr(Lower(KEY),Lower(:key))>0 ";
-//                parameters.Add(new OracleParameter("key", key));
-//            }
-//            if (!string.IsNullOrEmpty(valueString))
-//            {
-//                sql += " and instr(Lower(VALUE_STRING),Lower(:valueString))>0 ";
-//                parameters.Add(new OracleParameter("valueString", valueString));
-//            }
+        //            List<OracleParameter> parameters = new List<OracleParameter>();
+        //            if (!string.IsNullOrEmpty(entityType))
+        //            {
+        //                sql += " and instr(Lower(ENTITY_TYPE),Lower(:entityType))>0 ";
+        //                parameters.Add(new OracleParameter("entityType", entityType));
+        //            }
+        //            if (!string.IsNullOrEmpty(seqIdEntity))
+        //            {
+        //                sql += " and instr(Lower(SEQID_ENTITY),Lower(:seqIdEntity))>0 ";
+        //                parameters.Add(new OracleParameter("seqIdEntity", seqIdEntity));
+        //            }
+        //            if (!string.IsNullOrEmpty(key))
+        //            {
+        //                sql += " and instr(Lower(KEY),Lower(:key))>0 ";
+        //                parameters.Add(new OracleParameter("key", key));
+        //            }
+        //            if (!string.IsNullOrEmpty(valueString))
+        //            {
+        //                sql += " and instr(Lower(VALUE_STRING),Lower(:valueString))>0 ";
+        //                parameters.Add(new OracleParameter("valueString", valueString));
+        //            }
 
-//            return DbContext.Database.SqlQuery<ParametersViewModel>(sql, parameters.ToArray()).ToList();
+        //            return DbContext.Database.SqlQuery<ParametersViewModel>(sql, parameters.ToArray()).ToList();
 
-//        }
+        //        }
 
-//    }
-//}
+        //    }
+        //}
 
-//";
+        //";
 
-//            return str;
-//        }
+        //            return str;
+        //        }
 
 
         public string FormatName(string name)
@@ -586,22 +586,22 @@ namespace " + projectName + @".Repository.Tools.Repository
         {
             string str = "";
             string[] nameArray = name.Split('_');
-    int count = 0;
+            int count = 0;
             for (int i = 0; i < nameArray.Count(); i++)
             {
-        if (count == 0)
-        {
-            str += nameArray[i].ToLower() + " ";
-            count++;
-        }
-        else
-        {
-            str += nameArray[i].Substring(0, 1).ToUpper() + nameArray[i].Substring(1).ToLower() + " ";
-        }
+                if (count == 0)
+                {
+                    str += nameArray[i].ToLower() + " ";
+                    count++;
+                }
+                else
+                {
+                    str += nameArray[i].Substring(0, 1).ToUpper() + nameArray[i].Substring(1).ToLower() + " ";
+                }
             }
             return str.Substring(0, str.Length - 1);
         }
-public string FormatDbTypeToCsType(string dbType)
+        public string FormatDbTypeToCsType(string dbType)
         {
             if (dbType.Contains("CHAR"))
             {
@@ -616,6 +616,14 @@ public string FormatDbTypeToCsType(string dbType)
                 return "DateTime ?";
             }
             return "object";
+        }
+
+        private void btnSelAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listBoxColoumn.Items.Count; i++)
+            {
+                listBoxColoumn.SelectedIndex = i;
+            }
         }
     }
 }

@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.rdbSingleSearch = new System.Windows.Forms.RadioButton();
             this.rdbMultipleSearch = new System.Windows.Forms.RadioButton();
+            this.btnSelAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtTabelName
@@ -250,11 +251,23 @@
             this.rdbMultipleSearch.Text = "Multiple Search";
             this.rdbMultipleSearch.UseVisualStyleBackColor = true;
             // 
+            // btnSelAll
+            // 
+            this.btnSelAll.Font = new System.Drawing.Font("Microsoft YaHei", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSelAll.Location = new System.Drawing.Point(456, 135);
+            this.btnSelAll.Name = "btnSelAll";
+            this.btnSelAll.Size = new System.Drawing.Size(63, 43);
+            this.btnSelAll.TabIndex = 19;
+            this.btnSelAll.Text = "All";
+            this.btnSelAll.UseVisualStyleBackColor = true;
+            this.btnSelAll.Click += new System.EventHandler(this.btnSelAll_Click);
+            // 
             // MainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1239, 848);
+            this.Controls.Add(this.btnSelAll);
             this.Controls.Add(this.rdbMultipleSearch);
             this.Controls.Add(this.rdbSingleSearch);
             this.Controls.Add(this.txtRootName);
@@ -302,6 +315,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton rdbSingleSearch;
         private System.Windows.Forms.RadioButton rdbMultipleSearch;
+        private System.Windows.Forms.Button btnSelAll;
     }
 }
 
