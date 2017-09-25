@@ -47,6 +47,7 @@
             this.rdbSingleSearch = new System.Windows.Forms.RadioButton();
             this.rdbMultipleSearch = new System.Windows.Forms.RadioButton();
             this.btnSelAll = new System.Windows.Forms.Button();
+            this.btnPackage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtTabelName
@@ -133,7 +134,7 @@
             this.listBoxAddToShow.Font = new System.Drawing.Font("Microsoft YaHei Light", 10F);
             this.listBoxAddToShow.FormattingEnabled = true;
             this.listBoxAddToShow.ItemHeight = 30;
-            this.listBoxAddToShow.Location = new System.Drawing.Point(719, 387);
+            this.listBoxAddToShow.Location = new System.Drawing.Point(719, 375);
             this.listBoxAddToShow.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxAddToShow.Name = "listBoxAddToShow";
             this.listBoxAddToShow.Size = new System.Drawing.Size(366, 184);
@@ -142,10 +143,10 @@
             // btnCreate
             // 
             this.btnCreate.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCreate.Location = new System.Drawing.Point(53, 765);
+            this.btnCreate.Location = new System.Drawing.Point(972, 608);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(220, 58);
+            this.btnCreate.Size = new System.Drawing.Size(239, 58);
             this.btnCreate.TabIndex = 9;
             this.btnCreate.Text = "Quickly Create";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -166,7 +167,7 @@
             // btnDeleteShow
             // 
             this.btnDeleteShow.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnDeleteShow.Location = new System.Drawing.Point(1101, 387);
+            this.btnDeleteShow.Location = new System.Drawing.Point(1101, 375);
             this.btnDeleteShow.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDeleteShow.Name = "btnDeleteShow";
             this.btnDeleteShow.Size = new System.Drawing.Size(82, 43);
@@ -232,7 +233,7 @@
             this.rdbSingleSearch.AutoSize = true;
             this.rdbSingleSearch.Checked = true;
             this.rdbSingleSearch.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rdbSingleSearch.Location = new System.Drawing.Point(724, 695);
+            this.rdbSingleSearch.Location = new System.Drawing.Point(719, 676);
             this.rdbSingleSearch.Name = "rdbSingleSearch";
             this.rdbSingleSearch.Size = new System.Drawing.Size(193, 35);
             this.rdbSingleSearch.TabIndex = 17;
@@ -244,7 +245,7 @@
             // 
             this.rdbMultipleSearch.AutoSize = true;
             this.rdbMultipleSearch.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rdbMultipleSearch.Location = new System.Drawing.Point(939, 696);
+            this.rdbMultipleSearch.Location = new System.Drawing.Point(719, 717);
             this.rdbMultipleSearch.Name = "rdbMultipleSearch";
             this.rdbMultipleSearch.Size = new System.Drawing.Size(217, 35);
             this.rdbMultipleSearch.TabIndex = 18;
@@ -262,11 +263,23 @@
             this.btnSelAll.UseVisualStyleBackColor = true;
             this.btnSelAll.Click += new System.EventHandler(this.btnSelAll_Click);
             // 
+            // btnPackage
+            // 
+            this.btnPackage.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnPackage.Location = new System.Drawing.Point(972, 683);
+            this.btnPackage.Name = "btnPackage";
+            this.btnPackage.Size = new System.Drawing.Size(239, 58);
+            this.btnPackage.TabIndex = 20;
+            this.btnPackage.Text = "Package Create";
+            this.btnPackage.UseVisualStyleBackColor = true;
+            this.btnPackage.Click += new System.EventHandler(this.btnPackage_Click);
+            // 
             // MainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1239, 848);
+            this.ClientSize = new System.Drawing.Size(1239, 779);
+            this.Controls.Add(this.btnPackage);
             this.Controls.Add(this.btnSelAll);
             this.Controls.Add(this.rdbMultipleSearch);
             this.Controls.Add(this.rdbSingleSearch);
@@ -316,6 +329,7 @@
         private System.Windows.Forms.RadioButton rdbSingleSearch;
         private System.Windows.Forms.RadioButton rdbMultipleSearch;
         private System.Windows.Forms.Button btnSelAll;
+        private System.Windows.Forms.Button btnPackage;
     }
 }
 

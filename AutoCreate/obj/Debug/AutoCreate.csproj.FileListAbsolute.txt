@@ -12,3 +12,5 @@ C:\projects\AutoCreate\AutoCreate\bin\Debug\Oracle.ManagedDataAccess.EntityFrame
 C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.xml
 C:\projects\AutoCreate\AutoCreate\bin\Debug\EntityFramework.SqlServer.xml
 C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.MainPanel.resources
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.csprojResolveAssemblyReference.cache
+C:\projects\AutoCreate\AutoCreate\obj\Debug\AutoCreate.PackagesTxt.resources

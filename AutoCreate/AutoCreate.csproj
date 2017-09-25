@@ -69,11 +69,20 @@
     <Compile Include="MainPanel.Designer.cs">
       <DependentUpon>MainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="PackagesTxt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PackagesTxt.Designer.cs">
+      <DependentUpon>PackagesTxt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolsDbContext.cs" />
     <EmbeddedResource Include="MainPanel.resx">
       <DependentUpon>MainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackagesTxt.resx">
+      <DependentUpon>PackagesTxt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -638,5 +638,17 @@ namespace " + projectName + @".Repository.Tools.Repository
                 listBoxColoumn.SelectedIndex = i;
             }
         }
+
+        private void btnPackage_Click(object sender, EventArgs e)
+        {
+            string str = "";
+            for (int i = 0; i < listBoxColoumn.SelectedItems.Count; i++)
+            {
+                string[] s= listBoxColoumn.GetItemText(listBoxColoumn.SelectedItems[i]).Split(' ');
+                str += "\r\n"+ FormatName(s[0]) + " " + txtTabelName.Text + "." + s[0] + "%TYPE,";
+            }
+            PackagesTxt frmPackage = new PackagesTxt(str);
+            frmPackage.ShowDialog();
+        }
     }
 }
