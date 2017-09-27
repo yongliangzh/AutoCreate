@@ -160,7 +160,7 @@ namespace AutoCreate
 
 <html>
 <head>
-    <meta name=" + "\"viewport\" content=\"width = device - width\"" + @" />
+    <meta name=" + "\"viewport\" content=\"width = device-width\"" + @" />
         <title>" + fmtRootName + @"</title>
     
     <link href=" + "\"https://fonts.font.im/css?family=Fjalla+One\" rel=\"stylesheet\" type=\"text/css\"" + @">
@@ -168,14 +168,14 @@ namespace AutoCreate
 
           </head>
           <body>
-              <div ng - app = " + "\"myApp\" ng-controller = \"myCtrl\"" + @">
+              <div ng-app = " + "\"myApp\" ng-controller = \"myCtrl\"" + @">
                        <div class=" + "\"col-sm-12\"  style = \"margin-bottom:30px\"" + @">
-            <div class=" + "\"page - header\" style=\"font-family: 'Fjalla One', sans-serif; \"" + @">
+            <div class=" + "\"page-header\" style=\"font-family: 'Fjalla One', sans-serif; \"" + @">
                        <h1>" + fmtRootName + @"<small>" + fmtRootName + @"</small></h1>
                       </div>
                       <div class=" + "\"col-sm-4\"" + @">
                 <strong>Search Type</strong>
-                <select class=" + "\"form-control\" ng -change=\"change(type)\" ng-model=\"type\">";
+                <select class=" + "\"form-control\" ng-change=\"change(type)\" ng-model=\"type\">";
 
             for (int i = 0; i < listBoxAddToSelect.Items.Count; i++)
             {
@@ -416,7 +416,7 @@ namespace " + projectName + @".Business.Tools
         public List<" + fmtRootName + @"ViewModel> Get" + fmtRootName + @"(string searchText, string type)
         {
 
-            return uow." + fmtRootName + @".Repository.Get" + fmtRootName + @"(searchText, type);
+            return uow." + fmtRootName + @"Repository.Get" + fmtRootName + @"(searchText, type);
 
         }
     }
@@ -430,27 +430,26 @@ using System.Linq;
 using " + projectName + @".Model.Tools;
 using Oracle.ManagedDataAccess.Client;
 using System;
-namespace " + projectName + @".Repository.Tools.Repository
+namespace " + projectName + @".Repository.Tools.Repositories
 {
     public class " + fmtRootName + @"Repository: BaseRepository<DBNull>
     {
 
         public " + fmtRootName + @"Repository(System.Data.Entity.DbContext _db) : base(_db) { }
 
-        public List<" + fmtRootName + @"Model> Get" + fmtRootName + @"(string searchText, string type)
+        public List<" + fmtRootName + @"ViewModel> Get" + fmtRootName + @"(string searchText, string type)
         {
-            string sql = @" + "\"" + @"select
-";
+            string sql = @" + "\"" + @"select";
             for (int i = 0; i < listBoxAddToShow.Items.Count; i++)
             {
                 string[] s = listBoxAddToShow.GetItemText(listBoxAddToShow.Items[i]).Split(' ');
-                str +=
-@"                                " + s[0] + " as " + FormatName(s[0]) + @"
-";
+                str += @"
+                                " + s[0] + " as " + FormatName(s[0]) + @",";
             }
-            str += "                            from " + txtTabelName.Text + " where " + "\"" + @";
+            str =str.Substring(0,str.Length-1)+ @" from " + txtTabelName.Text + " where " + "\"" + @";
             List < OracleParameter > parameters = new List<OracleParameter>();
-            parameters.Add(new OracleParameter(" + "\"" + @"searchText" + "\"" + @", searchText));";
+            parameters.Add(new OracleParameter(" + "\"" + @"searchText" + "\"" + @", searchText));
+";
 
             string strSelString = "";
             string strSelTime = "";
@@ -478,7 +477,7 @@ namespace " + projectName + @".Repository.Tools.Repository
                     strSelTime += @"
             if (type == " + "\"" + s[0] + "\"" + @")
             {
-                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"trunc(" + s[0] + @") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
+                return DbContext.Database.SqlQuery<"+fmtRootName+@"ViewModel>(sql + " + "\"" + @"trunc(" + s[0] + @") = to_date(:searchText,'yyyy-mm-dd')" + "\"" + @", parameters.ToArray()).ToList();
             }
 ";
                 }
@@ -487,11 +486,11 @@ namespace " + projectName + @".Repository.Tools.Repository
             strSelString += @" };
             if (typeList.Contains(type))
             {
-                return DbContext.Database.SqlQuery<ActivityStreamModel>(sql + " + "\"" + @"instr(Lower(" + "\"" + @" + type + " + "\"" + @"),Lower(:searchText))>0" + "\"" + @", parameters.ToArray()).ToList();
+                return DbContext.Database.SqlQuery<" + fmtRootName + @"ViewModel>(sql + " + "\"" + @"instr(Lower(" + "\"" + @" + type + " + "\"" + @"),Lower(:searchText))>0" + "\"" + @", parameters.ToArray()).ToList();
             }
             else
             {
-                return new List<" + fmtRootName + @"Model>();
+                return new List<" + fmtRootName + @"ViewModel>();
             }
 
         }
@@ -642,12 +641,18 @@ namespace " + projectName + @".Repository.Tools.Repository
         private void btnPackage_Click(object sender, EventArgs e)
         {
             string str = "";
+            string strIntoP = "";
+            string strIntoN = "";
+            string strAs = "";
             for (int i = 0; i < listBoxColoumn.SelectedItems.Count; i++)
             {
                 string[] s= listBoxColoumn.GetItemText(listBoxColoumn.SelectedItems[i]).Split(' ');
                 str += "\r\n"+ FormatName(s[0]) + " " + txtTabelName.Text + "." + s[0] + "%TYPE,";
+                strIntoP +="\r\n"+ s[0] + ",";
+                strIntoN += "\r\n" + "oSet." + FormatName(s[0]) + ",";
+                strAs += "\r\n" + s[0] + " AS " + FormatName(s[0]) + ",";
             }
-            PackagesTxt frmPackage = new PackagesTxt(str);
+            PackagesTxt frmPackage = new PackagesTxt(str.Substring(0,str.Length-1),strIntoP.Substring(0,strIntoP.Length-1)+"\r\nINTO"+ strIntoN.Substring(0, strIntoN.Length - 1),strAs.Substring(0,strAs.Length-1));
             frmPackage.ShowDialog();
         }
     }

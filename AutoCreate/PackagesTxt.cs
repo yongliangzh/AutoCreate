@@ -12,10 +12,12 @@ namespace AutoCreate
 {
     public partial class PackagesTxt : Form
     {
-        public PackagesTxt(string txtRcd)
+        public PackagesTxt(string txtRcd,string txtInto1,string txtAs1)
         {
             InitializeComponent();
             txtRecord.Text = txtRcd;
+            txtInto.Text = txtInto1;
+            txtAs.Text = txtAs1;
         }
     }
 }
