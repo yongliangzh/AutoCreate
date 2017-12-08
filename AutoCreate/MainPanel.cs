@@ -31,7 +31,7 @@ namespace AutoCreate
                 colNames = db.Database.SqlQuery<string>(@"select 
                     concat(concat(column_name,' '),data_type) as ColoumnDetails 
                     from all_tab_columns 
-                    where table_name = '" + txtTabelName.Text + "' order by rownum desc").ToList();
+                    where table_name = '" + txtTabelName.Text + "' order by rownum ").ToList();//order by rownum desc
                 listBoxColoumn.DataSource = colNames;
                 listBoxColoumn.DisplayMember = "ColoumnDetails";
 
@@ -74,7 +74,7 @@ namespace AutoCreate
         private void btnDeleteShow_Click(object sender, EventArgs e)
         {
 
-            listBoxAddToShow.Items.Remove(listBoxAddToShow.GetItemText(listBoxAddToShow.SelectedItems));
+            listBoxAddToShow.Items.Remove(listBoxAddToShow.GetItemText(listBoxAddToShow.SelectedItem));
 
         }
         private void btnCreate_Click(object sender, EventArgs e)
@@ -136,10 +136,10 @@ namespace AutoCreate
             File.WriteAllText(txtPath.Text + "\\" + projectName + ".UI\\Areas\\Tools\\Views\\" + txtRootName.Text + "\\Index.cshtml", strView, Encoding.UTF8);
 
             DialogResult dr = MessageBox.Show("Mission Completed");
-            if (dr == DialogResult.OK)
-            {
-                System.Environment.Exit(0);
-            }
+            //if (dr == DialogResult.OK)
+            //{
+            //    System.Environment.Exit(0);
+            //}
 
         }
 
@@ -224,7 +224,7 @@ namespace AutoCreate
                 else
                 {
                     str += @"
-<td>{{x." + FormatName(s[0]) + "|date:'yyyy/MM/dd HH:mm:ss'}} </td>";
+<td>{{x." + FormatName(s[0]) + "||moment:'YYYY/MM/DD HH:mm:ss'}} </td>";
                 }
 
             }
